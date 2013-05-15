@@ -1,7 +1,7 @@
-VARVI
+VARVI: heart rate Variability Analysis in Response to Visual stImuli
 =====
 
-heart rate Variability Analysis in Response to Visual stImuli
+
 
 What is VARVI?
 --------------
