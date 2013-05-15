@@ -1,3 +1,28 @@
+# -*- coding:utf-8 -*-
+# -------------------------------------------------------------------------
+#    VARVI: heart rate Variability Analysis in Response to Visual stImuli
+#    Copyright (C) 2013  Milegroup - Dpt. Informatics
+#       University of Vigo - Spain
+#       www.milegroup.net
+
+#    Author:
+#      - Leandro Rodríguez-Liñares
+#      - Arturo Méndez
+#      - María José Lado
+#      - Xosé Antón Vila
+#      - Pedro Cuesta Morales
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+# -------------------------------------------------------------------------
+
 import threading
 from datetime import datetime,timedelta
 import sys
