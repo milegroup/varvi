@@ -1,5 +1,5 @@
 VARVI
 =====
 
-We use this library on GitHub when rendering your README or any other
-rich text file.
+heart rate Variability Analysis in Response to Visual stImuli
+
