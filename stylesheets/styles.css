@@ -42,8 +42,13 @@ h1, h2, h3, h4, h5, h6 {
   margin:36px 0 10px;
 }
 
-p, ul, ol, table, dl {
-  margin:0 0 22px;
+ul, ol, table, dl {
+  margin:0 0 0px;
+}
+
+p {
+  margin:0 0 10px;
+  text-align: justify;
 }
 
 h1, h2, h3 {
@@ -52,22 +57,32 @@ h1, h2, h3 {
 	font-weight: normal;
 }
 
-h1,h2, h3 {
+h2 {
 	display: block;
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 5px;
 }
 
 h1 {
-	font-size: 30px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;;
+	font-size: 20px;
+  text-align: right;
+  background-color: #5C7F19;
+  color:#FFFFFF;
+  font-weight:700;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-right: 20px;
 }
 
 h2 {
-	font-size: 24px;
+	font-size: 18px;
 }
 
 h3 {
-	font-size: 18px;
+	font-size: 14px;
+  font-weight:700;
+  color:#BD001C;
 }
 
 h4, h5, h6 {
@@ -89,8 +104,17 @@ a small {
 	font-size: 12px;
 }
 
+a.cite {
+  font-style: italic;
+}
+
+a.toc {
+  font-weight:700;
+  color:#5C7F19;
+}
+
 em {
-	font-style: italic;
+	font-style: bold;
 }
 
 strong {
@@ -138,15 +162,42 @@ hr {
   margin:0 0 24px;
 }
 
+input.defaultbutton {
+    display:none;
+}
+
+input.printablebutton {
+    float:right;
+    display:block;
+    background-color:#BD001C;
+    color:#FFFFFF;
+    padding:5px 10px 5px 10px;
+    font-size: 16px;
+
+}
+
+
 /* Images */
 
 img {
   position: relative;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
   max-width: 650px;
-  padding: 5px;
-  margin: 10px 0 32px 0;
+  /*padding: 5px;*/
+  /*margin: 10px 0 32px 0;*/
   border: 1px solid #ccc;
+}
+
+img.screenshot {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p.imgtxt {
+  text-align: center;
+  font-size: 10px;
+  font-style: italic;
 }
 
 
@@ -205,7 +256,7 @@ td {
 /* Header */
 
 header {
-	background-color: #171717;
+	background-color: #5C7F19;
 	color: #FDFDFB;
   width:170px;
   float:left;
@@ -232,6 +283,7 @@ h1.header {
 	font-weight: 300;
 	line-height: 1.3em;
 	border-bottom: none;
+  text-align: left;
 	margin-top: 0;
 }
 
@@ -294,6 +346,24 @@ a.buttons {
 	text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
 	padding: 2px 2px 2px 22px;
 	height: 30px;
+}
+
+a.buttonsdoc {
+  -webkit-font-smoothing: antialiased;
+  background: url(../images/book.png) no-repeat;
+  font-weight: normal;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
+  padding: 2px 2px 2px 22px;
+  height: 30px;
+}
+
+a.buttonspack {
+  -webkit-font-smoothing: antialiased;
+  background: url(../images/package_white.png) no-repeat;
+  font-weight: normal;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
+  padding: 2px 2px 2px 22px;
+  height: 30px;
 }
 
 a.github {
@@ -360,7 +430,7 @@ footer {
   header ul {
     position:absolute;
     right:130px;
-    top:84px;
+    top:20px;
   }
 }
 
