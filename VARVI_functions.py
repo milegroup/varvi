@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # -------------------------------------------------------------------------
 #    VARVI: heart rate Variability Analysis in Response to Visual stImuli
-#    Copyright (C) 2013  Milegroup - Dpt. Informatics
+#    Copyright (C) 2014  Milegroup - Dpt. Informatics
 #       University of Vigo - Spain
 #       www.milegroup.net
 
@@ -252,6 +252,66 @@ class DataAdquisition(threading.Thread):
 		while not self.Ended:
 			time.sleep(0.1)
 		self.socketBT.close()
+
+
+# ------------------------------
+
+class DataSimulation(threading.Thread):
+	from random import uniform
+	def __init__(self,verbose):
+		self.verbose=verbose
+		self.veryverbose = True
+		threading.Thread.__init__(self)
+		self.End = False
+		self.Ended=False
+		self.CorrectData = False
+		self.StoreData = False
+		self.ObtainedData=[]
+
+	def run(self):
+		from random import uniform
+		# print "I'm the thread that gets the data from the band"
+
+		while (True):
+		# try:
+			waitvalue = uniform(800,900)
+
+			time.sleep(waitvalue/1000.0)
+
+			rr = waitvalue
+
+			# print "RR interval: ",waitvalue
+
+			
+			if self.veryverbose:
+				print "    RR:", rr, "mseg."
+
+			self.CorrectData=True
+
+			if self.StoreData:
+				self.ObtainedData.append( ((datetime.now()-self.zerotime).total_seconds(),rr) )
+
+				
+			if self.End == True:
+				self.Ended = True
+				break
+
+	def EndAdquisition(self):
+		self.End = True
+		if self.verbose:
+			print "   End adquisition instant: %fs." % (datetime.now()-self.zerotime).total_seconds()
+		return self.ObtainedData
+		
+
+	def BeginAdquisition(self,zerotime):
+		self.StoreData = True
+		self.zerotime = zerotime
+		if self.verbose:
+			print "   Begin adquisition instant: %fs" % (datetime.now()-self.zerotime).total_seconds()
+
+	def DataIsCorrect(self):
+		return self.CorrectData
+
 
 
 # ------------------------------

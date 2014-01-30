@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------
    VARVI: heart rate Variability Analysis in Response to Visual stImuli
-   Copyright (C) 2013  Milegroup - Dpt. Informatics
+   Copyright (C) 2014  Milegroup - Dpt. Informatics
       University of Vigo - Spain
       www.milegroup.net
 

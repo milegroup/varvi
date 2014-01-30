@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 # -------------------------------------------------------------------------
 #    VARVI: heart rate Variability Analysis in Response to Visual stImuli
-#    Copyright (C) 2013  Milegroup - Dpt. Informatics
+#    Copyright (C) 2014  Milegroup - Dpt. Informatics
 #       University of Vigo - Spain
 #       www.milegroup.net
 
@@ -37,6 +37,8 @@ delay = 0.5
 parser = argparse.ArgumentParser(description='VARVI: heart rate Variability Analysis in Response to Visual stImuli')
 parser.add_argument('-v','--verbose', action='store_true', help='verbose mode on', default=False, dest="verbosemode")
 parser.add_argument('-d','--dirout', metavar='dir', help='output directory', dest="dirout", required=False, default=".")
+parser.add_argument('-n','--no-band', action='store_true', help='no band required', default=False, dest="nobandmode")
+
 parser.add_argument('config_filename', help='file containing the description of the experiment')
 parser.add_argument('record_name', help='name of files containing the data (record_name.rr.txt and record_name.tag.txt)')
 
@@ -71,6 +73,8 @@ for video in videos:
 
 
 if args.verbosemode:
+	if args.nobandmode:
+		print "   No band... simulating data"
 	if settings["random"]:
 		print "   Random mode"
 	else:
@@ -83,14 +87,15 @@ if args.verbosemode:
 		print "      Tag: %s" % tags[n]
 		print "      File: %s" % videos[n]
 	
-try:
-	socketBT=LinkPolarBand(settings["device"],args.verbosemode)
-except NoBand:
-	print "   *** ERROR: no bluetooth band was detected"
-	sys.exit(0)
-except KeyboardInterrupt:
-	print "   *** Program interrupted by user... exiting"
-	sys.exit(0)
+if not args.nobandmode:
+	try:
+		socketBT=LinkPolarBand(settings["device"],args.verbosemode)
+	except NoBand:
+		print "   *** ERROR: no bluetooth band was detected"
+		sys.exit(0)
+	except KeyboardInterrupt:
+		print "   *** Program interrupted by user... exiting"
+		sys.exit(0)
 
 if settings["random"]:
 	from random import shuffle
@@ -105,7 +110,11 @@ if settings["random"]:
 fileHR = args.dirout+os.sep+args.record_name+".rr.txt"
 fileTags = args.dirout+os.sep+args.record_name+".tag.txt"
 
-dataThread=DataAdquisition(socketBT,args.verbosemode)
+if args.nobandmode:
+	dataThread=DataSimulation(args.verbosemode)
+else:
+	dataThread=DataAdquisition(socketBT,args.verbosemode)
+
 try:
 	dataThread.start()
 
@@ -152,7 +161,8 @@ try:
 
 
 	datarr=dataThread.EndAdquisition()
-	dataThread.EndBTConnection()
+	if not args.nobandmode:
+		dataThread.EndBTConnection()
 
 except KeyboardInterrupt:
 	print "   *** Program interrupted by user... exiting"
