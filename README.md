@@ -9,6 +9,6 @@
 **VARVI** is in a very early stage of development, and at this moment it works with the following restrictions:
 * It runs only on GNU Linux operating system.
 * It depends on *mplayer* ([http://www.mplayerhq.hu/](http://www.mplayerhq.hu/)) to play the video files. On Debian/Ubuntu based systems, *mplayer* can be installed using: `sudo apt-get install mplayer`
-* It depends on *feh* to show the images. On Debian/Ubuntu based systems, *mplayer* can be installed using: `sudo apt-get install feh
+* It depends on *feh* to show the images. On Debian/Ubuntu based systems, *feh* can be installed using: `sudo apt-get install feh`
 * *PyBluez* libraries must be installed on the system ([http://pybluez.googlecode.com](http://pybluez.googlecode.com)). On Debian/Ubuntu based systems, this library can be installed using: `sudo apt-get install python-bluez`
-* **VARVI** obtains the data from a [Polar Wearlink®+ transmitter with bluetooth®](http://www.polar.com/en/products/accessories/Polar_WearLink_transmitter_with_Bluetooth) band. This band must be linked with the computer where **VARVI** is running. A simulation mode is available (it creates random data) using the -n argument when running the program.
+* **VARVI** obtains the data from a [Polar Wearlink®+ transmitter with bluetooth®](http://www.polar.com/en/products/accessories/Polar_WearLink_transmitter_with_Bluetooth) band. This band must be linked with the computer where **VARVI** is running. For testing purposes, a simulation mode is available that creates random data. It can be invoked using the *-n* argument when running the program: `python VARVI.py -n configfile.conf outputfile`
