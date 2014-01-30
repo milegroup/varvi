@@ -58,7 +58,7 @@ def GetSettings(filename,verbose):
 	options.read(filename)
 
 	settings={}
-	videos=[]
+	media=[]
 	tags=[]
 
 	if "Main" not in options.sections():
@@ -67,25 +67,37 @@ def GetSettings(filename,verbose):
 
 	MainParams = [x for (x,y) in options.items("Main")]
 
+	if "mode" not in MainParams:
+		print "   *** ERROR: 'mode' option missing in file %s" % filename
+		sys.exit(0)
+	mode = [elem[1] for elem in options.items("Main") if elem[0]=="mode"]
+
+	if mode != ['images'] and mode != ['videos']:
+		print "   *** ERROR: legal values for 'mode' option are images|videos"
+		sys.exit(0)
+
+	settings["mode"]=mode[0]
+
+
 	if "random" not in MainParams:
 		print "   *** ERROR: 'random' option missing in section [Main]"
 		sys.exit(0)
+
+	random = [elem[1] for elem in options.items("Main") if elem[0]=="random"]
+	if random == ['0']:
+		settings["random"]=False
+	elif random ==['1']:
+		settings["random"]=True
 	else:
-		random = [elem[1] for elem in options.items("Main") if elem[0]=="random"]
-		if random == ['0']:
-			settings["random"]=False
-		elif random ==['1']:
-			settings["random"]=True
-		else:
-			print "   *** ERROR: 'random' option with illegal value in [Main]"
-			sys.exit(0)
+		print "   *** ERROR: 'random' option with illegal value in [Main]"
+		sys.exit(0)
 
 	if "device" not in MainParams:
 		print "   *** ERROR: 'device' option missing in section [Main]"
 		sys.exit(0)
-	else:
-		device = [elem[1] for elem in options.items("Main") if elem[0]=="device"]
-		settings["device"]=device[0]
+
+	device = [elem[1] for elem in options.items("Main") if elem[0]=="device"]
+	settings["device"]=device[0]
 
 
 	if "gap" in MainParams:
@@ -96,18 +108,29 @@ def GetSettings(filename,verbose):
 			print "*** ERROR: 'gap' option with illegal value in [Main]"
 			sys.exit(0)
 
-	if "nvideos" not in MainParams:
-		print "   *** ERROR: 'nvideos' parameter missing in section [Main]"
-		sys.exit(0)
-	else:
-		nvideos = [elem[1] for elem in options.items("Main") if elem[0]=="nvideos"]
+	if "duration" in MainParams:
+		duration = [elem[1] for elem in options.items("Main") if elem[0]=="duration"]
 		try:
-			settings["nvideos"]=int(nvideos[0])
+			settings["duration"]=float(duration[0])
 		except ValueError:
-			print "   *** ERROR: 'nvideos' option with illegal value in [Main]"
+			print "*** ERROR: 'duration' option with illegal value in [Main]"
 			sys.exit(0)
 
-	for n in range(settings["nvideos"]):
+
+
+	if "nmedia" not in MainParams:
+		print "   *** ERROR: 'nmedia' parameter missing in section [Main]"
+		sys.exit(0)
+
+	nmedia = [elem[1] for elem in options.items("Main") if elem[0]=="nmedia"]
+	try:
+		settings["nmedia"]=int(nmedia[0])
+	except ValueError:
+		print "   *** ERROR: 'nmedia' option with illegal value in [Main]"
+		sys.exit(0)
+
+
+	for n in range(settings["nmedia"]):
 		section = 'Media_%02d' % (n+1)
 		if section not in options.sections():
 			print "   *** ERROR: [%s] section missing in file %s" % (section,filename)
@@ -116,16 +139,16 @@ def GetSettings(filename,verbose):
 		if "tag" not in SecParams:
 			print "   *** ERROR: 'tag' parameter missing in section [%s]" % section
 			sys.exit(0)
-		if "filename" not in SecParams:
-			print "   *** ERROR: 'filename' parameter missing in section [%s]" % section
+		if "source" not in SecParams:
+			print "   *** ERROR: 'source' parameter missing in section [%s]" % section
 			sys.exit(0)
 
 		tag = [elem[1] for elem in options.items(section) if elem[0]=="tag"]
-		filename = [elem[1] for elem in options.items(section) if elem[0]=="filename"]
+		source = [elem[1] for elem in options.items(section) if elem[0]=="source"]
 		tags.append(tag[0])
-		videos.append(filename[0])
+		media.append(source[0])
 
-	return settings,videos,tags
+	return settings,media,tags
 
 
 def SaveRRValues(dataRR,fileRR,verbose):
@@ -260,7 +283,7 @@ class DataSimulation(threading.Thread):
 	from random import uniform
 	def __init__(self,verbose):
 		self.verbose=verbose
-		self.veryverbose = True
+		self.veryverbose = False
 		threading.Thread.__init__(self)
 		self.End = False
 		self.Ended=False
