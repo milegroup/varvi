@@ -29,7 +29,6 @@ import sys
 import os
 import time
 import glob
-import psutil
 from datetime import datetime,timedelta
 from VARVI_functions import *
 
@@ -51,13 +50,23 @@ args = parser.parse_args()
 if args.verbosemode:
 	print "\nVARVI: heart rate Variability Analysis in Response to Visual stImuli\n"
 
-if sys.platform != "linux2":
-	print "   *** ERROR: VARVI must be run on a linux system"
+sysplat = sys.platform
+
+if sysplat != "linux2" and sysplat != "win32":
+	print "   *** ERROR: VARVI must be run on a linux or windows system"
 	sys.exit(0)
 
-if not os.path.isfile("/usr/bin/mplayer"):
-	print "   *** ERROR: mplayer must be installed on the system"
-	sys.exit(0)
+if sysplat == "linux":
+	sysexec = "/usr/bin/mplayer"
+	if not os.path.isfile(sysexec):
+		print "   *** ERROR: mplayer must be installed in the system"
+		sys.exit(0)
+
+if sysplat == "win32":
+	sysexec = "..\mplayer\mplayer.exe"
+	if not os.path.isfile(sysexec):
+		print "   *** ERROR: mplayer must be installed in the system"
+		sys.exit(0)
 
 if args.verbosemode:
 	print "   Processing file:",str(args.config_filename)
@@ -188,13 +197,23 @@ try:
 			tag=tags[n]
 			if args.verbosemode:
 				print "   Video %s started" % tag
-			
-			command = 'mplayer -really-quiet -fs %s  2> /dev/null' % video
+
+			if sysplat == "linux":
+				command = sysexec + ' -really-quiet -fs %s  2> /dev/null' % video
+
+			if sysplat == "win32":
+				command = sysexec + ' -really-quiet -fs %s' % video
 			
 			beg = (datetime.now()-zerotime).total_seconds()
 			if  args.verbosemode:
 				print "      Instant: %fs." % beg
-			os.system(command)
+
+			if sysplat == "linux":
+				os.system(command)
+
+			if sysplat == "win32":
+				os.system(command)
+
 			end = (datetime.now()-zerotime).total_seconds()
 
 			length=end-beg
