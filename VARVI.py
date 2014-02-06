@@ -254,7 +254,7 @@ try:
 				print "      Instant: %fs." % end
 
 			datatags.append((tag,beg,end))
-			# time.sleep(settings["gap"])
+		time.sleep(settings["gap"])
 
 
 	datarr=dataThread.EndAdquisition()
