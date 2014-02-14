@@ -56,7 +56,7 @@ if sysplat != "linux2" and sysplat != "win32":
 	print "   *** ERROR: VARVI must be run on a linux or windows system"
 	sys.exit(0)
 
-if sysplat == "linux":
+if sysplat == "linux2":
 	sysexec = "/usr/bin/mplayer"
 	if not os.path.isfile(sysexec):
 		print "   *** ERROR: mplayer must be installed in the system"
@@ -198,7 +198,7 @@ try:
 			if args.verbosemode:
 				print "   Video %s started" % tag
 
-			if sysplat == "linux":
+			if sysplat == "linux2":
 				command = sysexec + ' -really-quiet -fs %s  2> /dev/null' % video
 
 			if sysplat == "win32":
@@ -208,7 +208,7 @@ try:
 			if  args.verbosemode:
 				print "      Instant: %fs." % beg
 
-			if sysplat == "linux":
+			if sysplat == "linux2":
 				os.system(command)
 
 			if sysplat == "win32":
@@ -257,7 +257,7 @@ try:
 		time.sleep(settings["gap"])
 
 
-	datarr=dataThread.EndAdquisition()
+	errorinprogram, datarr=dataThread.EndAdquisition()
 	if not args.nobandmode:
 		dataThread.EndBTConnection()
 
@@ -268,6 +268,9 @@ except KeyboardInterrupt:
 	dataThread.join()
 	sys.exit(0)
 
-SaveRRValues(datarr, fileHR, args.verbosemode)
-SaveTags(datatags, fileTags, args.verbosemode)
+if errorinprogram:
+	print "*** ERROR in program... not saving data"
+else:
+	SaveRRValues(datarr, fileHR, args.verbosemode)
+	SaveTags(datatags, fileTags, args.verbosemode)
 

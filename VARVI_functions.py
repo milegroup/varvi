@@ -194,6 +194,7 @@ class DataAdquisition(threading.Thread):
 		self.socketBT = socketBT
 		self.End = False
 		self.Ended=False
+		self.ErrorInProgram = False
 		self.CorrectData = False
 		self.StoreData = False
 		self.ObtainedData=[]
@@ -201,53 +202,73 @@ class DataAdquisition(threading.Thread):
 	def run(self):
 		# print "I'm the thread that gets the data from the band"
 
+
 		while (True):
 		# try:
-			data = self.socketBT.recv(1).encode('hex')
-			# while data != 'fe':
-			# 	data = self.socketBT.recv(1).encode('hex')
-			# print "Package header: ",int(data,16)
-			data = self.socketBT.recv(1).encode('hex')
-			ll = int(data,16)
-			# print "Package length:", ll, "bytes"
+			try:
+				data1 = self.socketBT.recv(1).encode('hex')
+				# while data != 'fe':
+				# 	data = self.socketBT.recv(1).encode('hex')
+				# print "Package header: ",int(data,16)
+				data2 = self.socketBT.recv(1).encode('hex')
+				ll = int(data2,16)
+				# print "Package length:", ll, "bytes"
 
-			data = self.socketBT.recv(ll-2).encode('hex')
-			chk = int(data[0:2],16)
-			if chk+ll != 255:
-				print "*** ERROR: Package not Ok ***"
+				data3 = self.socketBT.recv(ll-2).encode('hex')
+				chk = int(data3[0:2],16)
+				if chk+ll != 255:
+					print "*** ERROR: Package not Ok ***"
 
-			seq = int(data[2:4],16)
-			if self.veryverbose:
-				print "Package seq:",seq
-
-			status = int(data[4:6],16)
-			if self.veryverbose:
-				print "Package status:",status
-
-			hr = int(data[6:8],16)
-			if self.veryverbose:
-				print "Heart rate:",hr,"bpm"
-
-			nextbit  = 8
-
-			if self.veryverbose:
-				print "Package contains",(ll-6)/2,"beats"
-
-			for i in range((ll-6)/2):  # No. de valores RR por paquete
-				rr1 = int(data[nextbit:nextbit+2],16)
-				rr2 = int(data[nextbit+2:nextbit+4],16)
-				rr=(rr1<<8)|rr2
+				seq = int(data3[2:4],16)
 				if self.veryverbose:
-					print "    RR:", rr, "mseg."
+					print "Package seq:",seq
 
-				if rr>self.MinRR and not self.CorrectData:
-					self.CorrectData=True
+				status = int(data3[4:6],16)
+				if self.veryverbose:
+					print "Package status:",status
 
-				if self.StoreData:
-					self.ObtainedData.append( ((datetime.now()-self.zerotime).total_seconds(),rr) )
+				hr = int(data3[6:8],16)
+				if self.veryverbose:
+					print "Heart rate:",hr,"bpm"
 
-				nextbit = nextbit+4
-				
+				nextbit  = 8
+
+				if self.veryverbose:
+					print "Package contains",(ll-6)/2,"beats"
+
+				for i in range((ll-6)/2):  # No. de valores RR por paquete
+					rr1 = int(data3[nextbit:nextbit+2],16)
+					rr2 = int(data3[nextbit+2:nextbit+4],16)
+					rr=(rr1<<8)|rr2
+					if self.veryverbose:
+						print "    RR:", rr, "mseg."
+
+					if rr>self.MinRR and not self.CorrectData:
+						self.CorrectData=True
+
+					if self.StoreData:
+						self.ObtainedData.append( ((datetime.now()-self.zerotime).total_seconds(),rr) )
+
+					nextbit = nextbit+4
+
+			except ValueError as e:
+				print "*** Exception ValueError raised: data not Ok ***"
+				import traceback, os.path
+				top = traceback.extract_stack()[-1]
+				print "Program:",os.path.basename(top[0]), " -  Line:", str(top[1])
+				print "Data:"
+				print data1
+				print data2
+				print data3
+				self.ErrorInProgram = True
+
+
+			except Exception as e:
+				import traceback, os.path
+				top = traceback.extract_stack()[-1]
+				print "*** Exception:",type(e).__name__," -  Program:",os.path.basename(top[0]), " -  Line:", str(top[1]),"***"
+				self.ErrorInProgram = True
+
 			if self.End == True:
 				self.Ended = True
 				break
@@ -258,7 +279,7 @@ class DataAdquisition(threading.Thread):
 		self.End = True
 		if self.verbose:
 			print "   End adquisition instant: %fs." % (datetime.now()-self.zerotime).total_seconds()
-		return self.ObtainedData
+		return self.ErrorInProgram, self.ObtainedData
 		
 
 	def BeginAdquisition(self,zerotime):
@@ -323,7 +344,7 @@ class DataSimulation(threading.Thread):
 		self.End = True
 		if self.verbose:
 			print "   End adquisition instant: %fs." % (datetime.now()-self.zerotime).total_seconds()
-		return self.ObtainedData
+		return False, self.ObtainedData
 		
 
 	def BeginAdquisition(self,zerotime):
