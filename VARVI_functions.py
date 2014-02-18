@@ -252,15 +252,18 @@ class DataAdquisition(threading.Thread):
 					nextbit = nextbit+4
 
 			except ValueError as e:
-				print "*** Exception ValueError raised: data not Ok ***"
-				import traceback, os.path
-				top = traceback.extract_stack()[-1]
-				print "Program:",os.path.basename(top[0]), " -  Line:", str(top[1])
-				print "Data:"
-				print data1
-				print data2
-				print data3
-				self.ErrorInProgram = True
+				if not self.End:  # Exception only works if BT is still connected
+					print "*** Exception ValueError raised: data not Ok ***"
+					import traceback, os.path
+					top = traceback.extract_stack()[-1]
+					print "Program:",os.path.basename(top[0]), " -  Line:", str(top[1])
+					print "Data:"
+					print data1
+					print data2
+					print data3
+					self.ErrorInProgram = True
+				else:
+					print "*** Warning: ValueError raised at the end of the adquisition"
 
 
 			except Exception as e:
