@@ -56,17 +56,8 @@ if sysplat != "linux2" and sysplat != "win32":
 	print "   *** ERROR: VARVI must be run on a linux or windows system"
 	sys.exit(0)
 
-if sysplat == "linux2":
-	sysexec = "/usr/bin/mplayer"
-	if not os.path.isfile(sysexec):
-		print "   *** ERROR: mplayer must be installed in the system"
-		sys.exit(0)
 
-if sysplat == "win32":
-	sysexec = "..\mplayer\mplayer.exe"
-	if not os.path.isfile(sysexec):
-		print "   *** ERROR: mplayer must be installed in the system"
-		sys.exit(0)
+
 
 if args.verbosemode:
 	print "   Processing file:",str(args.config_filename)
@@ -89,6 +80,7 @@ if settings["mode"]=="videos":
 
 if settings["mode"]=="images":
 	images = len(media)*[None]
+	imagesDirs = len(media)*[None]
 	for i in range(len(media)):
 		if not os.path.isdir(media[i]):
 			print "   *** ERROR: directory %s does not exist" % media[i]
@@ -98,6 +90,7 @@ if settings["mode"]=="images":
 			print "   *** ERROR: directory %s contains no .jpg files" % media[i]
 			sys.exit(0)
 		images[i]=files
+		imagesDirs[i]=media[i]
 
 
 
@@ -129,6 +122,41 @@ if args.verbosemode:
 		print "   Duration of images:",str(settings["duration"]),"seconds"
 		print "   No. of directories:",str(settings["nmedia"])
 	
+if settings["mode"]=='videos':
+
+	if sysplat == "linux2":
+		sysexecMPlayer = "/usr/bin/mplayer"
+		if not os.path.isfile(sysexecMPlayer):
+			print "   *** ERROR: mplayer must be installed in the system"
+			sys.exit(0)
+
+	if sysplat == "win32":
+		import inspect, os
+		varvipath=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) # script directory
+		sysexecMPlayer = os.path.abspath(varvipath+"\..\mplayer\mplayer.exe")
+		if not os.path.isfile(sysexecMPlayer):
+			print "   *** ERROR:",sysexecMPlayer,"not found"
+			print "   It seems that mplayer is not installed in the system"
+			sys.exit(0)
+
+if settings["mode"]=='images':
+
+	if sysplat == "linux2":
+		sysexecViewer = "/usr/bin/feh"
+		if not os.path.isfile(sysexecViewer):
+			print "   *** ERROR: feh must be installed in the system"
+			sys.exit(0)
+
+	if sysplat == "win32":
+		import inspect, os
+		varvipath=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) # script directory
+		sysexecViewer = os.path.abspath(varvipath+"\..\JPEGView\JPEGView.exe")
+		if not os.path.isfile(sysexecViewer):
+			print "   *** ERROR:",sysexecViewer,"not found"
+			print "   It seems that JPEGView is not installed in the system"
+			sys.exit(0)
+
+
 if not args.nobandmode:
 	try:
 		socketBT=LinkPolarBand(settings["device"],args.verbosemode)
@@ -192,6 +220,7 @@ try:
 	datatags=[]
 
 	if settings["mode"]=='videos':
+
 		for n in range(len(videos)):
 			video=videos[n]
 			tag=tags[n]
@@ -199,10 +228,10 @@ try:
 				print "   Video %s started" % tag
 
 			if sysplat == "linux2":
-				command = sysexec + ' -really-quiet -fs %s  2> /dev/null' % video
+				command = sysexecMPlayer + ' -really-quiet -fs %s  2> /dev/null' % video
 
 			if sysplat == "win32":
-				command = sysexec + ' -really-quiet -fs %s' % video
+				command = sysexecMPlayer + ' -really-quiet -fs %s' % video
 			
 			beg = (datetime.now()-zerotime).total_seconds()
 			if  args.verbosemode:
@@ -227,7 +256,6 @@ try:
 
 	if settings["mode"]=="images":
 
-		from PIL import Image
 		import subprocess
 		for n in range(len(images)):
 			tag = tags[n]
@@ -238,10 +266,19 @@ try:
 			if  args.verbosemode:
 				print "      Instant: %fs." % beg
 
-			command = 'feh -D %d --cycle-once -F --zoom max ' % settings["duration"]
+			if sysplat == "linux2":
 
-			for imagefile in images[n]:
-				command = command + imagefile+" "
+				command = sysexecViewer+' -D %d --cycle-once -F --zoom max ' % settings["duration"]
+
+				for imagefile in images[n]:
+					command = command + imagefile+" "
+
+			if sysplat == "win32":
+				command = sysexecViewer+" "+imagesDirs[n]+' /slideshow %d /fullscreen /autoexit ' % settings["duration"]
+
+				# if settings["random"]:
+				# 	command = command + " /order Z"
+
 
 	  		# print command
 
