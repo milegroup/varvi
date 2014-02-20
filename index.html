@@ -35,19 +35,34 @@
 
 <p>VARVI (heart rate Variability Analysis in Response to Visual stImuli) is a free software tool developed to perform heart rate variability (HRV) analysis in response to different visual stimuli. The tool was developed after realizing that this type of studies are becoming popular in fields such as psychiatry, psychology and marketing, and taking into account the lack of specific tools for this purpose.</p>
 
-<p>VARVI allows the users to obtain Heart Rate (HR) records from subjects who are watching video files. Each video file will be labelled with a tag, and the HR record will contain information of these tags with their corresponding time intervals.</p>
+<p>VARVI allows the users to obtain Heart Rate (HR) records from subjects who are watching video files or sets of images. In case video files are used, each video file will be labelled with a tag, and the HR record will contain information of these tags with their corresponding time intervals. When using sets of images, users specify directories containing images, and each directory will be associated with a tag.</p>
 
 <h1>What does VARVI need to work?</h1>
 
-VARVI is in a very early stage of development, and at this moment it works with the following restrictions:
+VARVI is in an early stage of development, and at this moment it works with the following restrictions:
 <ul>
-<li>It runs only on GNU Linux operating system.</li>
-<li>It depends on <a href="http://www.mplayerhq.hu">mplayer</a> to play the video files. On Debian/Ubuntu based systems, mplayer can be installed using:
+<li>It runs on GNU Linux and Windows operating systems.</li>
+<li>It depends on external software to show the images and video files (see installation procedure below).</li>
+<li>Images must be in .jpg format</li>
+<li><a href="http://www.python.org/">Python</a> and <a href="http://pybluez.googlecode.com">PyBluez</a> libraries must be installed on the system</li>
+<li>VARVI obtains the data from a <i>Polar Wearlink®+ transmitter with bluetooth®</i> band. This band must be linked with the computer where VARVI is running.</li>
+</ul>
+
+<h1>Installation on GNU Linux systems</h1>
+
+<ul>
+<li>Download the <i>zip</i> file containing the software and uncompress it. </li>
+<li>VARVI depends on <a href="http://www.mplayerhq.hu">mplayer</a> to play the video files. On Debian/Ubuntu based systems, mplayer can be installed using:
+<code>sudo apt-get install mplayer</code></li>
+<li>VARVI depends on <a href="http://www.mplayerhq.hu">feh</a> to show the image files. On Debian/Ubuntu based systems, mplayer can be installed using:
 <code>sudo apt-get install mplayer</code></li>
 <li><a href="http://pybluez.googlecode.com">PyBluez</a> libraries must be installed on the system. On Debian/Ubuntu based systems, this library can be installed using:
 <code>sudo apt-get install python-bluez</code></li>
-<li>VARVI obtains the data from a <i>Polar Wearlink®+ transmitter with bluetooth®</i> band. This band must be linked with the computer where VARVI is running.</li>
 </ul>
+
+
+
+
 
       </section>
       <footer>
