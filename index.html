@@ -43,21 +43,33 @@ VARVI is in an early stage of development, and at this moment it works with the 
 <ul>
 <li>It runs on GNU Linux and Windows operating systems.</li>
 <li>It depends on external software to show the images and video files (see installation procedure below).</li>
-<li>Images must be in .jpg format</li>
-<li><a href="http://www.python.org/">Python</a> and <a href="http://pybluez.googlecode.com">PyBluez</a> libraries must be installed on the system</li>
+<li>Images must be in .jpg format (.jpg and .jpeg extensions)</li>
+<li>It depends on <a href="http://www.python.org/">Python</a> and the <a href="http://pybluez.googlecode.com">PyBluez</a> libraries.</li>
 <li>VARVI obtains the data from a <i>Polar Wearlink®+ transmitter with bluetooth®</i> band. This band must be linked with the computer where VARVI is running.</li>
 </ul>
 
 <h1>Installation on GNU Linux systems</h1>
 
 <ul>
-<li>Download the <i>zip</i> file containing the software and uncompress it. </li>
-<li>VARVI depends on <a href="http://www.mplayerhq.hu">mplayer</a> to play the video files. On Debian/Ubuntu based systems, mplayer can be installed using:
-<code>sudo apt-get install mplayer</code></li>
-<li>VARVI depends on <a href="http://www.mplayerhq.hu">feh</a> to show the image files. On Debian/Ubuntu based systems, mplayer can be installed using:
-<code>sudo apt-get install mplayer</code></li>
-<li><a href="http://pybluez.googlecode.com">PyBluez</a> libraries must be installed on the system. On Debian/Ubuntu based systems, this library can be installed using:
-<code>sudo apt-get install python-bluez</code></li>
+<li>Download the <i>zip</i> file containing the software and uncompress it.</li>
+<li>VARVI depends on <a href="http://www.mplayerhq.hu">mplayer</a> to play the video files and on <a href="http://feh.finalrewind.org/">feh</a> viewer to show the image files. Besides, <a href="http://pybluez.googlecode.com">PyBluez</a> libraries must be installed on the system. On Debian/Ubuntu based systems, theses dependencies can be installed using the following command in a terminal:<br/>
+<code>sudo apt-get install mplayer feh python-bluez</code></li>
+</ul>
+
+<h1>Installation on Windows systems</h1>
+<ul>
+  <li>Download the <i>zip</i> file containing the software and uncompress it.</li>
+  <li>VARVI depends on <a href="http://www.mplayerhq.hu">mplayer</a> to play the video files and on <a href="http://sourceforge.net/projects/jpegview/">JPEGView</a> viewer to show the image files. Download and umcompress both programs. VARVI requires the structure of directories to be as shown in the figure:
+    <center><img src="./directories.png"/></center>
+  where 
+  <ul>
+    <li><code>Varvi</code> folder must contain the <code>VARVI.py</code> and <code>VARVI_functions.py</code> files.</li>
+    <li>The folder containing the <code>mplayer.exe</code> file must be renamed to <code>mplayer</code></li>
+    <li>The folder containing the <code>JPEGView.exe</code> file must be renamed to <code>JPEGView</code></li>
+  </ul>
+  </li>
+  <li>The <code>JPEGView/JPEGView.ini</code> file must be opened with a file editor and the <code>WrapAroundFolder</code> option must be set to <code>false</code> for the image viewer to work properly. </li>
+  <li>Install <a href="http://www.python.org/">Python</a> and the <a href="http://pybluez.googlecode.com">PyBluez</a> libraries on the system</li>
 </ul>
 
 
