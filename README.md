@@ -10,14 +10,16 @@
 * It runs on GNU Linux and Windows operating systems.
 * It depends on external software to show the images and video files (see installation procedure below).
 * Images must be in .jpg format (.jpg and .jpeg extensions)
-* It depends on [Python](<a href=")http://www.python.org) and the [PyBluez](http://pybluez.googlecode.com) libraries.
-* **VARVI** obtains the data from a [Polar Wearlink®+ transmitter with bluetooth®](http://www.polar.com/en/products/accessories/Polar_WearLink_transmitter_with_Bluetooth) band. This band must be linked with the computer where VARVI is running.
+* It depends on [Python](http://www.python.org) and the [PyBluez](http://pybluez.googlecode.com) libraries.
+* **VARVI** obtains the data from a [Polar Wearlink®+ transmitter with bluetooth®](http://www.polar.com/en/products/accessories/Polar_WearLink_transmitter_with_Bluetooth) band. This band must be linked with the computer where VARVI is running.  For testing purposes, a simulation mode (without band) is available that creates random data.
 
 ##Installation on GNU Linux systems##
 
-* It depends on *mplayer* ([http://www.mplayerhq.hu/](http://www.mplayerhq.hu/)) to play the video files. On Debian/Ubuntu based systems, *mplayer* can be installed using: `sudo apt-get install mplayer`
-* It depends on *feh* to show the images. On Debian/Ubuntu based systems, *feh* can be installed using: `sudo apt-get install feh`
-* *PyBluez* libraries must be installed on the system ([http://pybluez.googlecode.com](http://pybluez.googlecode.com)). On Debian/Ubuntu based systems, this library can be installed using: `sudo apt-get install python-bluez`
-* **VARVI** obtains the data from a [Polar Wearlink®+ transmitter with bluetooth®](http://www.polar.com/en/products/accessories/Polar_WearLink_transmitter_with_Bluetooth) band. This band must be linked with the computer where **VARVI** is running. For testing purposes, a simulation mode is available that creates random data. It can be invoked using the *-n* argument when running the program: `python VARVI.py -n configfile.conf outputfile`
+* Download the **zip** file containing the software and uncompress it.
+* **VARVI** depends on [mplayer](http://www.mplayerhq.hu) to play the video files and on [feh](http://feh.finalrewind.org/) viewer to show the image files. Besides, [PyBluez](http://pybluez.googlecode.com) libraries must be installed on the system. On Debian/Ubuntu based systems, theses dependencies can be installed using the following command in a terminal: `sudo apt-get install mplayer feh python-bluez`
 
-##What does VARVI need to work?##
+##Installation on Windows systems##
+
+* Download the **zip** file containing the software and uncompress it.
+* **VARVI** depends on [mplayer](http://www.mplayerhq.hu) to play the video files and on [JPEGView](http://sourceforge.net/projects/jpegview/) viewer to show the image files. Download and umcompress both programs. **VARVI** requires the structure of directories to be as shown in the figure:
+![Alt text](./directories.png)
