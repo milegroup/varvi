@@ -85,9 +85,9 @@ if settings["mode"]=="images":
 		if not os.path.isdir(media[i]):
 			print "   *** ERROR: directory %s does not exist" % media[i]
 			sys.exit(0)
-		files = glob.glob( os.path.join(media[i], '*.jpg') )
+		files = insensitive_glob( os.path.join(media[i], '*.jpg') ) + insensitive_glob( os.path.join(media[i], '*.jpeg') ) 
 		if len(files)==0:
-			print "   *** ERROR: directory %s contains no .jpg files" % media[i]
+			print "   *** ERROR: directory %s contains no .jpg or .jpeg files" % media[i]
 			sys.exit(0)
 		images[i]=files
 		imagesDirs[i]=media[i]

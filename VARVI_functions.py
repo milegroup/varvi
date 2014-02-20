@@ -28,6 +28,13 @@ from datetime import datetime,timedelta
 import sys
 import time
 
+import glob
+
+def insensitive_glob(pattern):
+    def either(c):
+        return '[%s%s]'%(c.lower(),c.upper()) if c.isalpha() else c
+    return glob.glob(''.join(map(either,pattern)))
+
 class NoBand(Exception):pass
 
 def LinkPolarBand(btDevice,verbose):
