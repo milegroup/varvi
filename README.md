@@ -23,12 +23,11 @@
 * Download the **zip** file containing the software and uncompress it.
 * **VARVI** depends on [mplayer](http://www.mplayerhq.hu) to play the video files and on [JPEGView](http://sourceforge.net/projects/jpegview/) viewer to show the image files. Download and umcompress both programs. **VARVI** requires the structure of directories to be as shown in the figure:
 
-![Alt text](./directories.png)
+->![Alt text](./directories.png)<-
 
 where
-+ **Varvi** folder must contain the **VARVI.py** and **VARVI_functions.py** files.
-+ The folder containing the **mplayer.exe** file must be renamed to **mplayer**
-+ The folder containing the **JPEGView.exe** file must be renamed to **JPEGView**
-
+	+ **Varvi** folder must contain the **VARVI.py** and **VARVI_functions.py** files.
+	+ The folder containing the **mplayer.exe** file must be renamed to **mplayer**
+	+ The folder containing the **JPEGView.exe** file must be renamed to **JPEGView**
 * The **JPEGView/JPEGView.ini** file must be opened with a file editor and the **WrapAroundFolder** option must be set to **false** for the image viewer to work properly.
-* Install [Python](http://www.python.org/) and the [PyBluez](http://pybluez.googlecode.com) libraries on the system</li>
+* Install [Python](http://www.python.org/) and the [PyBluez](http://pybluez.googlecode.com) libraries on the system
