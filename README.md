@@ -12,23 +12,3 @@
 * Images must be in .jpg format (.jpg and .jpeg extensions)
 * It depends on [Python](http://www.python.org) and the [PyBluez](http://pybluez.googlecode.com) libraries.
 * **VARVI** obtains the data from a [Polar Wearlink®+ transmitter with bluetooth®](http://www.polar.com/en/products/accessories/Polar_WearLink_transmitter_with_Bluetooth) band. This band must be linked with the computer where VARVI is running.  For testing purposes, a simulation mode (without band) is available that creates random data.
-
-##Installation on GNU Linux systems##
-
-* Download the **zip** file containing the software and uncompress it.
-* **VARVI** depends on [mplayer](http://www.mplayerhq.hu) to play the video files and on [feh](http://feh.finalrewind.org/) viewer to show the image files. Besides, [PyBluez](http://pybluez.googlecode.com) libraries must be installed on the system. On Debian/Ubuntu based systems, theses dependencies can be installed using the following command in a terminal: `sudo apt-get install mplayer feh python-bluez`
-
-##Installation on Windows systems##
-
-* Download the **zip** file containing the software and uncompress it.
-* Install [Python](http://www.python.org/) and the [PyBluez](http://pybluez.googlecode.com) libraries on the system.
-* **VARVI** depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download ([mplayer]http://oss.netfarm.it/mplayer-win32.php), [JPEGView](http://sourceforge.net/projects/jpegview/)) and umcompress both programs. **VARVI** requires the structure of directories to be as shown in the figure:
-
-![Alt text](./directories.png)
-
-where
-+ **Varvi** folder must contain the **VARVI.py** and **VARVI_functions.py** files.
-+ The folder containing the **mplayer.exe** file must be renamed to **mplayer**
-+ The folder containing the **JPEGView.exe** file must be renamed to **JPEGView**
-* The **JPEGView/JPEGView.ini** file must be opened with a file editor and the **WrapAroundFolder** option must be set to **false** for the image viewer to work properly.
-
