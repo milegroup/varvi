@@ -62,11 +62,11 @@ VARVI is in an early stage of development, and at this moment it works with the 
   <li>VARVI depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download (<a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">mplayer</a>, <a href="http://sourceforge.net/projects/jpegview/">JPEGView</a>) and uncompress both programs. VARVI requires the structure of directories to be as shown in the figure:
     <center><img src="./directories.png"/></center>
   where 
-  <ul>
+  <ol>
     <li><code>Varvi</code> folder must contain the <code>VARVI.py</code> and <code>VARVI_functions.py</code> files.</li>
-    <li>The folder containing the <code>mplayer.exe</code> file must be renamed to <code>mplayer</code></li>
+    <li>The folder containing the <code>mplayer.exe</code> flpytie must be renamed to <code>mplayer</code></li>
     <li>The folder containing the <code>JPEGView.exe</code> file must be renamed to <code>JPEGView</code></li>
-  </ul>
+  </ol>
   </li>
   <li>The <code>JPEGView/JPEGView.ini</code> file must be opened with a file editor and the <code>WrapAroundFolder</code> option must be set to <code>false</code> for the image viewer to work properly. </li>
   <li>Install <a href="http://www.python.org/">Python 2.7</a> and the corresponding <a href="http://pybluez.googlecode.com">PyBluez</a> libraries on the system</li>
@@ -74,8 +74,24 @@ VARVI is in an early stage of development, and at this moment it works with the 
 
 Comments on windows installation:
 <ul>
-  <li>Please, be careful to install Python ver. 2.7. VARVI does not work with Python ver. 3!</li>
+  <li>Be careful to install Python 2.7. VARVI does not work in Python 3</li>
   <li>The first time Mplayer is run, it can take a long time scanning fonts on the system. Just wait for it to end.</li>
+  <li>Python executable may not be in the path of the system. If this is the case, you have to follow these steps:
+    <ol>
+      <li>Hold "Win" and press "Pause" to open the Control Panel</li>
+      <li>Click "Advanced System Settings"</li>
+      <li>Click "Environment Variables"</li>
+      <li>Append <code>";C:\python27"</code> to the Path variable</li>
+      <li>Restart Command Prompt</li>
+    </ol>
+  </li>
+  <li>Be careful when modifying the file <code>JPEGView/JPEGView.ini</code>. It may be the case that Windows does not show file extensions and the modification be applied to file <code>JPEGView/JPEGView.ini.tbl</code>, also provided with JPEGView. To show file extensions:
+    <ol>
+      <li>Open a file explorer: you can do this by opening up any folder</li>
+      <li>Click <code>"Organize"</code>, and <code>"Folder and search options</code>"</li>
+      <li>Click the <code>"View"</code> tab. Scroll down until you see <code>"Hide extensions for known file types"</code>, deactivate this option by clicking on the check box</li>
+      <li>Click <code>"OK"</code> and file extensions will be shown</li>
+    </ol>
 </ul>
 
 
