@@ -22,7 +22,7 @@
 
 * Download the **zip** file containing the software and uncompress it.
 * Install [Python](http://www.python.org/) and the [PyBluez](http://pybluez.googlecode.com) libraries on the system.
-* **VARVI** depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download ([mplayer](http://oss.netfarm.it/mplayer-win32.php), [JPEGView](http://sourceforge.net/projects/jpegview/)) and umcompress both programs. **VARVI** requires the structure of directories to be as shown in the figure:
+* **VARVI** depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download ([mplayer]http://oss.netfarm.it/mplayer-win32.php), [JPEGView](http://sourceforge.net/projects/jpegview/)) and umcompress both programs. **VARVI** requires the structure of directories to be as shown in the figure:
 
 ![Alt text](./directories.png)
 
