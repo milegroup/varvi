@@ -262,6 +262,7 @@ class DataAdquisition(threading.Thread):
 
 					nextbit = nextbit+4
 
+
 			except ValueError as e:
 				if not self.End:  # Exception only works if BT is still connected
 					print "*** Exception ValueError raised: data not Ok ***"
