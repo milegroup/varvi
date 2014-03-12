@@ -59,7 +59,7 @@ VARVI is in an early stage of development, and at this moment it works with the 
 <h1>Installation on Windows systems</h1>
 <ul>
   <li>Download the <i>zip</i> file containing the software and uncompress it.</li>
-  <li>VARVI depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download (<a href="http://oss.netfarm.it/mplayer-win32.php">mplayer</a>, <a href="http://sourceforge.net/projects/jpegview/">JPEGView</a>) and uncompress both programs. VARVI requires the structure of directories to be as shown in the figure:
+  <li>VARVI depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download (<a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">mplayer</a>, <a href="http://sourceforge.net/projects/jpegview/">JPEGView</a>) and uncompress both programs. VARVI requires the structure of directories to be as shown in the figure:
     <center><img src="./directories.png"/></center>
   where 
   <ul>
@@ -69,7 +69,13 @@ VARVI is in an early stage of development, and at this moment it works with the 
   </ul>
   </li>
   <li>The <code>JPEGView/JPEGView.ini</code> file must be opened with a file editor and the <code>WrapAroundFolder</code> option must be set to <code>false</code> for the image viewer to work properly. </li>
-  <li>Install <a href="http://www.python.org/">Python</a> and the <a href="http://pybluez.googlecode.com">PyBluez</a> libraries on the system</li>
+  <li>Install <a href="http://www.python.org/">Python 2.7</a> and the corresponding <a href="http://pybluez.googlecode.com">PyBluez</a> libraries on the system</li>
+</ul>
+
+Comments on windows installation:
+<ul>
+  <li>Please, be careful to install Python ver. 2.7. VARVI does not work with Python ver. 3!</li>
+  <li>The first time Mplayer is run, it can take a long time scanning fonts on the system. Just wait for it to end.</li>
 </ul>
 
 
