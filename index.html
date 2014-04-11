@@ -57,35 +57,38 @@ VARVI is in an early stage of development, and at this moment it works with the 
 </ul>
 
 <h1>Installation on Windows systems</h1>
-<ul>
-  <li>Download the <i>zip</i> file containing the software and uncompress it.</li>
-  <li>VARVI depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download (<a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">mplayer</a>, <a href="http://sourceforge.net/projects/jpegview/">JPEGView</a>) and uncompress both programs. VARVI requires the structure of directories to be as shown in the figure:
+VARVI depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download (<a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">mplayer</a>, <a href="http://sourceforge.net/projects/jpegview/">JPEGView</a>) and uncompress both programs. VARVI requires the structure of directories to be as shown in the figure:
     <center><img src="./directories.png"/></center>
   where 
-  <ol>
+  <ul>
     <li><code>Varvi</code> folder must contain the <code>VARVI.py</code> and <code>VARVI_functions.py</code> files.</li>
-    <li>The folder containing the <code>mplayer.exe</code> flpytie must be renamed to <code>mplayer</code></li>
+    <li>The folder containing the <code>mplayer.exe</code> file must be renamed to <code>mplayer</code></li>
     <li>The folder containing the <code>JPEGView.exe</code> file must be renamed to <code>JPEGView</code></li>
-  </ol>
-  </li>
-  <li>The <code>JPEGView/JPEGView.ini</code> file must be opened with a file editor and the <code>WrapAroundFolder</code> option must be set to <code>false</code> for the image viewer to work properly. </li>
-  <li>Install Python 2.7.X (available <a href="https://www.python.org/downloads/">here</a>).</li>
-  <li>Install the PyBluez libraries (available from <a href="https://code.google.com/p/pybluez/downloads/list">here</a>)  n the system. Be sure to download and install the <code>"PyBluez-X.Y.win32-py2.7.exe"</code> version of the library.</li>
-</ul>
+  </ul>
 
-Comments on windows installation:
-<ul>
-  <li>The first time Mplayer is run, it can take a long time scanning fonts on the system. Just wait for it to end.</li>
-  <li>Python executable may not be in the path of the system. If this is the case, you have to follow these steps:
-    <ol>
+<br/>
+
+A step-by-step installation procedure is included in the following:
+<ol>
+  <li>Download the <i>zip</i> file containing the software and uncompress it. Rename the directory containing the file <code>VARVI.py</code> to <code>Varvi</code>.</li>
+  <li>Install Python 2.7.X (available <a href="https://www.python.org/downloads/">here</a>). To add the python executable file to the path of the system, you have to follow these steps:
+    <ul>
       <li>Hold "Win" and press "Pause" to open the Control Panel</li>
       <li>Click "Advanced System Settings"</li>
       <li>Click "Environment Variables"</li>
       <li>Append <code>";C:\python27"</code> to the Path variable</li>
       <li>Restart Command Prompt</li>
-    </ol>
+    </ul>
+
   </li>
-  <li>Be careful when modifying the file <code>JPEGView/JPEGView.ini</code>. It may be the case that Windows does not show file extensions and the modification be applied to file <code>JPEGView/JPEGView.ini.tbl</code>, also provided with JPEGView. To show file extensions:
+
+  <li>Install the PyBluez libraries (available from <a href="https://code.google.com/p/pybluez/downloads/list">here</a>) in the system. Be sure to download and install the <code>"PyBluez-X.Y.win32-py2.7.exe"</code> version of the library.</li>
+
+  <li>Download Mplayer (available <a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">here</a>). Uncompress and rename the directory as shown in the figure above. The first time Mplayer is run, it can take a long time scanning fonts on the system. Just wait for it to end.</li>
+
+  <li>Download JPEGView (available <a href="http://sourceforge.net/projects/jpegview/">here</a>). JPEGViewer includes versions for both 32 and 64 bit operating systems. Be careful to use the one corresponding to your system. If unsure, you can check which version to use in the System information of the Control Panel (Hold "Win" and press "Pause" to open). Rename the directory as shown in the figure above.</li>
+  
+  <li>The <code>JPEGView/JPEGView.ini</code> file must be opened with a file editor and the <code>WrapAroundFolder</code> option must be set to <code>false</code> for the image viewer to work properly. Be careful when modifying the file <code>JPEGView/JPEGView.ini</code>. It may be the case that Windows does not show file extensions and the modification be applied to file <code>JPEGView/JPEGView.ini.tbl</code>, also provided with JPEGView. To show file extensions:
     <ol>
       <li>Open a file explorer: you can do this by opening up any folder</li>
       <li>Click <code>"Organize"</code>, and <code>"Folder and search options</code>"</li>
