@@ -211,21 +211,31 @@ class DataAdquisition(threading.Thread):
 	def run(self):
 		# print "I'm the thread that gets the data from the band"
 		import socket as socketLib
+		import sys
 
 
 
 		while (True):
 		# try:
 			try:
-				data1 = self.socketBT.recv(1, socketLib.MSG_WAITALL).encode('hex')
+				if sys.platform == "win32":
+					data1 = self.socketBT.recv(1).encode('hex')
+				else:
+					data1 = self.socketBT.recv(1, socketLib.MSG_WAITALL).encode('hex')
 				# while data != 'fe':
 				# 	data = self.socketBT.recv(1).encode('hex')
 				# print "Package header: ",int(data,16)
-				data2 = self.socketBT.recv(1, socketLib.MSG_WAITALL).encode('hex')
+				if sys.platform == "win32":
+					data2 = self.socketBT.recv(1).encode('hex')
+				else:
+					data2 = self.socketBT.recv(1, socketLib.MSG_WAITALL).encode('hex')
 				ll = int(data2,16)
 				# print "Package length:", ll, "bytes"
 
-				data3 = self.socketBT.recv(ll-2, socketLib.MSG_WAITALL).encode('hex')
+				if sys.platform == "win32":
+					data3 = self.socketBT.recv(ll-2).encode('hex')
+				else:
+					data3 = self.socketBT.recv(ll-2, socketLib.MSG_WAITALL).encode('hex')
 				chk = int(data3[0:2],16)
 				if chk+ll != 255:
 					print "*** ERROR: Package not Ok ***"
