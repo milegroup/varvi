@@ -139,24 +139,6 @@ if settings["mode"]=='videos':
 			print "   It seems that mplayer is not installed in the system"
 			sys.exit(0)
 
-if settings["mode"]=='images':
-
-	if sysplat == "linux2":
-		sysexecViewer = "/usr/bin/feh"
-		if not os.path.isfile(sysexecViewer):
-			print "   *** ERROR: feh must be installed in the system"
-			sys.exit(0)
-
-	if sysplat == "win32":
-		import inspect, os
-		varvipath=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) # script directory
-		sysexecViewer = os.path.abspath(varvipath+"\..\JPEGView\JPEGView.exe")
-		if not os.path.isfile(sysexecViewer):
-			print "   *** ERROR:",sysexecViewer,"not found"
-			print "   It seems that JPEGView is not installed in the system"
-			sys.exit(0)
-
-
 if not args.nobandmode:
 	try:
 		socketBT=LinkPolarBand(settings["device"],args.verbosemode)
@@ -256,7 +238,23 @@ try:
 
 	if settings["mode"]=="images":
 
-		import subprocess
+		import pygame
+
+		background=(0,0,0)
+		pygame.init()
+		infoObject=pygame.display.Info()
+
+		ScreenWidth = infoObject.current_w
+		ScreenHeight = infoObject.current_h 
+		size=(ScreenWidth, ScreenHeight)
+		screen = pygame.display.set_mode(size,pygame.FULLSCREEN)
+		pygame.mouse.set_visible(False)
+
+		# ScreenWidth = 640
+		# ScreenHeight = 480
+		# size=(ScreenWidth, ScreenHeight)
+		# screen = pygame.display.set_mode(size)
+
 		for n in range(len(images)):
 			tag = tags[n]
 
@@ -266,23 +264,23 @@ try:
 			if  args.verbosemode:
 				print "      Instant: %fs." % beg
 
-			if sysplat == "linux2":
 
-				command = sysexecViewer+' -D %d --cycle-once -F --zoom max ' % settings["duration"]
-
-				for imagefile in images[n]:
-					command = command + imagefile+" "
-
-			if sysplat == "win32":
-				command = sysexecViewer+" "+imagesDirs[n]+' /slideshow %d /fullscreen /autoexit ' % settings["duration"]
-
-				# if settings["random"]:
-				# 	command = command + " /order Z"
-
-
-	  		# print command
-
-	  		os.system(command)
+			for imagefile in images[n]:
+				img=pygame.image.load(imagefile).convert()
+				if img.get_width() > ScreenWidth:
+					factor = 1.0*img.get_width()/ScreenWidth
+					newWidth = int(img.get_width()/factor)
+					newHeight = int(img.get_height()/factor)
+					img = pygame.transform.scale(img, (newWidth,newHeight))
+				if img.get_height() > ScreenHeight:
+					factor = 1.0*img.get_height()/ScreenHeight
+					newWidth = int(img.get_width()/factor)
+					newHeight = int(img.get_height()/factor)
+					img = pygame.transform.scale(img, (newWidth,newHeight))
+				screen.fill(background)
+				screen.blit(img,((ScreenWidth-img.get_width())/2,((ScreenHeight-img.get_height())/2)))
+				pygame.display.flip()
+				time.sleep(settings["duration"])
 
 			end = (datetime.now()-zerotime).total_seconds()
 			length=end-beg
@@ -292,6 +290,7 @@ try:
 
 			datatags.append((tag,beg,end))
 		time.sleep(settings["gap"])
+		pygame.quit()
 
 
 	errorinprogram, datarr=dataThread.EndAdquisition()
@@ -299,11 +298,21 @@ try:
 		dataThread.EndBTConnection()
 
 except KeyboardInterrupt:
-	print "   *** Program interrupted by user... exiting"
+	print "*** Program interrupted by user... exiting"
 	if not args.nobandmode:
 		dataThread.EndBTConnection()
+	dataThread.EndAdquisition()
 	dataThread.join()
-	sys.exit(0)
+	errorinprogram = True
+except Exception,e:
+	print "*** Unexpected exception:", str(e)
+	if settings["mode"]=="images":
+		pygame.quit()
+	if not args.nobandmode:
+		dataThread.EndBTConnection()
+	dataThread.EndAdquisition()
+	dataThread.join()
+	errorinprogram = True
 
 if errorinprogram:
 	print "*** ERROR in program... not saving data"
