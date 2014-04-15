@@ -22,7 +22,7 @@
         <ul>
           <li class="download"><a class="buttons" href="https://github.com/milegroup/varvi/zipball/master">Download ZIP</a></li>
           <li class="download"><a class="buttons" href="https://github.com/milegroup/varvi/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/milegroup/varvi">View On GitHub</a></li>
+          <li><a class="buttons github" href="https://github.com/milegroup/varvi">On GitHub</a></li>
         </ul>
 
         <p class="header">This project is maintained by <a class="header name" href="https://github.com/milegroup">milegroup</a></p>
@@ -42,9 +42,9 @@
 VARVI is in an early stage of development, and at this moment it works with the following restrictions:
 <ul>
 <li>It runs on GNU Linux and Windows operating systems.</li>
-<li>It depends on external software to show the images and video files (see installation procedure below).</li>
+<li>It depends on external software to show the video files (see installation procedure below).</li>
 <li>Images must be in .jpg format (.jpg and .jpeg extensions)</li>
-<li>It depends on <a href="http://www.python.org/">Python</a> and the <a href="http://pybluez.googlecode.com">PyBluez</a> libraries.</li>
+<li>It depends on <a href="http://www.python.org/">Python</a> and the <a href="http://pybluez.googlecode.com">PyBluez</a> and <a href="http://www.pygame.org">PyGame</a> libraries.</li>
 <li>VARVI obtains the data from a <i>Polar Wearlink®+ transmitter with bluetooth®</i> band. This band must be linked with the computer where VARVI is running.  For testing purposes, a simulation mode (without band) is available that creates random data.</li>
 </ul>
 
@@ -52,18 +52,17 @@ VARVI is in an early stage of development, and at this moment it works with the 
 
 <ul>
 <li>Download the <i>zip</i> file containing the software and uncompress it.</li>
-<li>VARVI depends on <a href="http://www.mplayerhq.hu">mplayer</a> to play the video files and on <a href="http://feh.finalrewind.org/">feh</a> viewer to show the image files. Besides, <a href="http://pybluez.googlecode.com">PyBluez</a> libraries must be installed on the system. On Debian/Ubuntu based systems, theses dependencies can be installed using the following command in a terminal:<br/>
-<code>sudo apt-get install mplayer feh python-bluez</code></li>
+<li>VARVI depends on <a href="http://www.mplayerhq.hu">mplayer</a> to play the video files. Besides, <a href="http://pybluez.googlecode.com">PyBluez</a> and <a href="http://www.pygame.org">PyGame</a> libraries must be installed on the system. On Debian/Ubuntu based systems, these dependencies can be installed using the following command in a terminal:<br/>
+<code>sudo apt-get install mplayer python-pygame python-bluez</code></li>
 </ul>
 
 <h1>Installation on Windows systems</h1>
-VARVI depends on mplayer to play the video files and on JPEGView viewer to show the image files. Download (<a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">mplayer</a>, <a href="http://sourceforge.net/projects/jpegview/">JPEGView</a>) and uncompress both programs. VARVI requires the structure of directories to be as shown in the figure:
+VARVI depends on mplayer to play the video files. Users must download (<a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">mplayer</a>)  and uncompress the program. VARVI requires the structure of directories to be as shown in the figure:
     <center><img src="./directories.png"/></center>
   where 
   <ul>
     <li><code>Varvi</code> folder must contain the <code>VARVI.py</code> and <code>VARVI_functions.py</code> files.</li>
     <li>The folder containing the <code>mplayer.exe</code> file must be renamed to <code>mplayer</code></li>
-    <li>The folder containing the <code>JPEGView.exe</code> file must be renamed to <code>JPEGView</code></li>
   </ul>
 
 <br/>
@@ -82,19 +81,12 @@ A step-by-step installation procedure is included in the following:
 
   </li>
 
-  <li>Install the PyBluez libraries (available from <a href="https://code.google.com/p/pybluez/downloads/list">here</a>) in the system. Be sure to download and install the <code>"PyBluez-X.Y.win32-py2.7.exe"</code> version of the library.</li>
+  <li>Install the PyBluez libraries (available from <a href="https://code.google.com/p/pybluez/downloads/list">here</a>) in the system. Be sure to download and use the file named <code>"PyBluez-X.Y.win32-py2.7.exe"</code>.</li>
+
+   <li>Install the PyGame libraries (available from <a href="http://www.pygame.org/download.shtml">here</a>) in the system. Be sure to download and use the file named <code>"pygame-X.Y.Z.win32-py2.7.msi"</code>.</li>
 
   <li>Download Mplayer (available <a href="http://sourceforge.net/projects/mplayerwin/?source=recommended">here</a>). Uncompress and rename the directory as shown in the figure above. The first time Mplayer is run, it can take a long time scanning fonts on the system. Just wait for it to end.</li>
 
-  <li>Download JPEGView (available <a href="http://sourceforge.net/projects/jpegview/">here</a>). JPEGViewer includes versions for both 32 and 64 bit operating systems. Be careful to use the one corresponding to your system. If unsure, you can check which version to use in the System information of the Control Panel (Hold "Win" and press "Pause" to open). Rename the directory as shown in the figure above.</li>
-  
-  <li>The <code>JPEGView/JPEGView.ini</code> file must be opened with a file editor and the <code>WrapAroundFolder</code> option must be set to <code>false</code> for the image viewer to work properly. Be careful when modifying the file <code>JPEGView/JPEGView.ini</code>. It may be the case that Windows does not show file extensions and the modification be applied to file <code>JPEGView/JPEGView.ini.tbl</code>, also provided with JPEGView. To show file extensions:
-    <ol>
-      <li>Open a file explorer: you can do this by opening up any folder</li>
-      <li>Click <code>"Organize"</code>, and <code>"Folder and search options</code>"</li>
-      <li>Click the <code>"View"</code> tab. Scroll down until you see <code>"Hide extensions for known file types"</code>, deactivate this option by clicking on the check box</li>
-      <li>Click <code>"OK"</code> and file extensions will be shown</li>
-    </ol>
 </ul>
 
 
