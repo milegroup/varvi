@@ -125,36 +125,19 @@ if args.verbosemode:
 if settings["mode"]=='videos':
 
 	if sysplat == "linux2":
-		sysexecVLC = "/usr/bin/vlc"
-		if not os.path.isfile(sysexecVLC):
-			print "   *** ERROR: vlc must be installed in the system"
+		sysexecMPlayer = "/usr/bin/mplayer"
+		if not os.path.isfile(sysexecMPlayer):
+			print "   *** ERROR: mplayer must be installed in the system"
 			sys.exit(0)
 
 	if sysplat == "win32":
-		def get_registry_value(key, subkey, value):
-		    import _winreg
-		    key = getattr(_winreg, key)
-		    handle = _winreg.OpenKey(key, subkey)
-		    (value, type) = _winreg.QueryValueEx(handle, value)
-		    return value.replace("Program Files","progra~1")+"\\vlc.exe"
-
-		def vlc_exepath():
-		    try:
-		        version = get_registry_value(
-		            "HKEY_LOCAL_MACHINE", 
-		            "SOFTWARE\\VideoLAN\\VLC",
-		            "InstallDir")
-		    except WindowsError:
-		        version = None
-		    return r""+version
-
-		sysexecVLC = vlc_exepath()
-		# print sysexecVLC
-
-		if sysexecVLC == None:
-			print "   *** ERROR: It seems that VLC is not installed in the system"
+		import inspect, os
+		varvipath=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) # script directory
+		sysexecMPlayer = os.path.abspath(varvipath+"\..\mplayer\mplayer.exe")
+		if not os.path.isfile(sysexecMPlayer):
+			print "   *** ERROR:",sysexecMPlayer,"not found"
+			print "   It seems that mplayer is not installed in the system"
 			sys.exit(0)
-
 
 if not args.nobandmode:
 	try:
@@ -227,21 +210,20 @@ try:
 				print "   Video %s started" % tag
 
 			if sysplat == "linux2":
-				command = sysexecVLC + ' -f -I dummy --play-and-exit --no-video-title-show %s  2> /dev/null' % video
+				command = sysexecMPlayer + ' -really-quiet -fs %s  2> /dev/null' % video
 
 			if sysplat == "win32":
-				command = sysexecVLC + ' -f -I dummy --play-and-exit --no-video-title-show %s' % video
+				command = sysexecMPlayer + ' -really-quiet -fs %s' % video
 			
 			beg = (datetime.now()-zerotime).total_seconds()
 			if  args.verbosemode:
 				print "      Instant: %fs." % beg
-			
-			if sysplat =="linux2":
+
+			if sysplat == "linux2":
 				os.system(command)
+
 			if sysplat == "win32":
 				os.system(command)
-				# import subprocess
-				# subprocess.call([command])
 
 			end = (datetime.now()-zerotime).total_seconds()
 
