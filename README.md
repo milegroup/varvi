@@ -8,7 +8,7 @@
 
 **VARVI** is in a early stage of development, and at this moment it works with the following restrictions:
 * It runs on GNU Linux and Windows operating systems.
-* It depends on external software to show the images and video files (see installation procedure below).
+* It depends on external software to show the video files (see installation procedure).
 * Images must be in .jpg format (.jpg and .jpeg extensions)
-* It depends on [Python](http://www.python.org) and the [PyBluez](http://pybluez.googlecode.com) libraries.
+* It depends on [Python](http://www.python.org) and the [PyGame](http://www.pygame.org/news.html) and [PyBluez](http://pybluez.googlecode.com) libraries.
 * **VARVI** obtains the data from a [Polar Wearlink®+ transmitter with bluetooth®](http://www.polar.com/en/products/accessories/Polar_WearLink_transmitter_with_Bluetooth) band. This band must be linked with the computer where VARVI is running.  For testing purposes, a simulation mode (without band) is available that creates random data.
