@@ -23,6 +23,8 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 # -------------------------------------------------------------------------
+# TODO:
+#	- Check with band: tags go beyond beats
 
 import argparse
 import sys
@@ -307,7 +309,7 @@ try:
 				print "      Instant: %fs." % end
 
 			datatags.append((tag,beg,end))
-		time.sleep(settings["gap"])
+			time.sleep(settings["gap"])
 		pygame.quit()
 
 
