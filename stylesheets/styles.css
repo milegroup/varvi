@@ -108,6 +108,17 @@ a.cite {
   font-style: italic;
 }
 
+p.cite {
+  font-style: italic;
+  background-color:#DDDDDD;
+  color:#000000;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+
 a.toc {
   font-weight:700;
   color:#5C7F19;
